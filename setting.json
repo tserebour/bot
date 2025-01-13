@@ -1,0 +1,34 @@
+
+
+
+{
+    "delete_profiles_after": true,
+    "api_key": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiN2ZhYTgzYjE5ZTU5NjEzNDIzYTdhNDEwNDBlMzg2YjliZjY5ZDNiMjFkOWI4ZDk3ODFiZTJkMzZkMmY0MmE1Yzg5OGM3NTUxM2U3NWFhOGQiLCJpYXQiOjE3MjQzNDExMDUuMTQ4NTY3LCJuYmYiOjE3MjQzNDExMDUuMTQ4NTcsImV4cCI6MTc1NTg3NzEwNS4xMzkwNjQsInN1YiI6IjM2NzU1NjAiLCJzY29wZXMiOltdfQ.YqT6Fnk2MKHzdba3w_6lTsR93pyyl6VBOA_6wYIg8lWFsMt_iRUdkjaUAQ1ooYNkVvNu9CJX4j_bjUgO_FF8tL4vghpsiEvwC6vQYkvIktaZDj6Djt9bnFomaEBwqIJlWXlV7PsEa783T1FvY4vlQkBA0psFzwNYrTcalGpWPpNf1oaTa1fZuFQ1QlK3cWAhNgC-cVX9eXKACQKLiQjEJP7DXx-6JcuoJz2tWvUUJt0GUcHp3mtpIlA4aGYZynSMyOJk4qCLSyBxNaCw3ul2hKPbTYlnr_u7yiGm1Vh6bZhXME665P_RnrkXuWklp1VuSSbxVlvX5qaXInSOx7Rb_smdcOBtXEIdbRv9EXeROh2qP3vT2b2VCFzFS2zLTwyuNklSlDD3_bV2eX3TgPEpkvp0pYH-ADnbnb4Et15IgL9-xsBnHNfeFuqPKQJQQf_bJ90lB0jp9DMXwjAJZ7tZ-vlZSKwsDSp0UySPtVfYGFD3qbc9VnGOzi5owvOpCcJvrKRh7zybBbJYz-krXibj0QCo7dGdR_eo7eWJDEMjyQQ6gS28Z-SDUGjvRV21kqALVXfnXXShFZU3Oqfg7npDOimq0U0DucB-D6syyKpq6HtZgIs_W8d8pO-RMY2rHt9kZGJnaTgEW6Z883rqP6ogLyN5lbMpNvCBVELtB58ZLks",
+    
+    "bingUrl" : "https://www.bing.com/ck/a?!&&p=5a6c3a945ff62b6fJmltdHM9MTcyNDM3MTIwMCZpZ3VpZD0wMGY5Zjc3YS1kYmQzLTZkMzktMGZlZC1lMzllZGEzZTZjZjEmaW5zaWQ9NTE4MA&ptn=3&ver=2&hsh=3&fclid=00f9f77a-dbd3-6d39-0fed-e39eda3e6cf1&u=a1aHR0cHM6Ly9tZXRhbHdvcmtpbmdwcm8uY29tL2Jsb2cv&ntb=1",
+    "googleUrl" : "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://metalworkingpro.com/&ved=2ahUKEwie7cSTn42IAxV2MlkFHauHOrgQFnoECBEQAQ&usg=AOvVaw1wDigIJbEAthLzUjtbyS2T",
+    "googleSearchWords": "site:metalworkingpro.com",
+    "scroll_speed": 500,
+
+    "randomTimeToStartBrowsing": 600000, 
+    
+    
+    
+    "links":[
+        "https://metalworkingpro.com/protecting-your-furry-friend-the-importance-of-insurance-for-dogs/",
+    
+        "https://metalworkingpro.com/understanding-the-basics-of-renters-insurance-protecting-your-belongings/",
+    
+        "https://metalworkingpro.com/the-benefits-of-using-an-insurance-calculator/",
+    
+        "https://metalworkingpro.com/demystifying-insurance-quotes-your-guide-to-finding-the-best-deal/",
+    
+        "https://metalworkingpro.com/the-definitive-guide-to-deciphering-renters-insurance-policies/",
+    
+        "https://metalworkingpro.com/protecting-your-pregnancy-the-importance-of-insurance-for-pregnant-women/",
+    
+        "https://metalworkingpro.com/the-comprehensive-guide-to-mastering-home-insurance-policies/"
+    ]
+}
+
+  
