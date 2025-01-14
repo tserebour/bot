@@ -50,9 +50,10 @@ async function getProfiles(settings) {
             }
          };
          
-         axios(config)
+         var response = await axios(config)
         console.log("got profiles");
-        return JSON.stringify(response.data)
+        console.log(response.data.data.docs);
+        return response.data.data.docs;
      
     } catch (err) {
         console.error("Error getting profiles: ", err.message);
@@ -72,7 +73,9 @@ async function open_profile(profile_id, settings) {
             }
          };
          
-         return await axios(config)
+         var response = await axios(config)
+         console.log(response.data.data)
+         return  response.data.data
     } catch (err) {
         console.error("Error opening profile: ", err.message);
         return null;
@@ -243,7 +246,7 @@ function sleep(ms) {
 async function openBrowser(id, links,settings) {
     console.log(`Opening browser profile ID: ${id}`);
 
-    var randomWaitingTimeToStartBrowsing = Math.floor(Math.random() * settings.randomTimeToStartBrowsing)
+    var randomWaitingTimeToStartBrowsing = Math.floor(Math.random() * settings.randomTimeToStartBrowsing*60000)
         console.log(`Browser ${id} will be started in ${randomWaitingTimeToStartBrowsing/60000} minute(s)`)
         await sleep(randomWaitingTimeToStartBrowsing); 
 
@@ -253,14 +256,16 @@ async function openBrowser(id, links,settings) {
         if (!response) return;
 
         const port = response.port;
-        const wsEndpoint = response.wsEndpoint;
+        const browserWSEndpoint = response.webSocketDebuggerUrl;
+        console.log(browserWSEndpoint)
 
         
          
 
         const browser = await puppeteer.connect({
-            browserWSEndpoint: `ws://127.0.0.1:${port}${wsEndpoint}`
-        });
+            browserWSEndpoint: browserWSEndpoint,
+            defaultViewport: null,
+          });
 
         // enough time for all the extensions to  load 
         await sleep(Math.floor(Math.random() * 30000));
@@ -443,8 +448,8 @@ async function main() {
             const profiles_response = await getProfiles(settings);
             if (!profiles_response) return;
 
-            const profiles = profiles_response.data;
-            const profile_ids = profiles.map(profile => profile.id);
+            const profiles = profiles_response;
+            const profile_ids = profiles.map(profile => profile.profileId);
 
             const probabilityToRunInParallelOrSeries = Math.floor(Math.random() * 100);
 
