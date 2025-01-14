@@ -66,8 +66,10 @@ async function open_profile(profile_id, settings) {
         var token = settings.api_key;
         var config = {
             method: 'get',
-            url: `http://localhost:8848/api/agent/${profile_id}/start/`,
-            headers: { }
+            url: `http://localhost:8848/api/agent/browser/start/${profile_id}`,
+            headers: { 
+                'x-api-key': token,
+            }
          };
          
          return await axios(config)
@@ -80,7 +82,7 @@ async function open_profile(profile_id, settings) {
 async function close_profile(profile_id,settings) {
     try {
         var token = settings.api_key;
-        const get_url = `http://localhost:3001/v1.0/browser_profiles/${profile_id}/stop`;
+        const get_url = `http://localhost:8848/api/agent/browser/stop/${profile_id}`;
         const response = await axios.get(get_url, {
             headers: {
                 'Authorization': `Bearer ${token}`,
