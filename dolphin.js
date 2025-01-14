@@ -248,7 +248,7 @@ async function openBrowser(id, links,settings) {
         if (!response) return;
 
         const port = response.port;
-        const wsEndpoint = response.wsEndpoint;
+        const wsEndpoint = response.webSocketDebuggerUrl;
 
         
          

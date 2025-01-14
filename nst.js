@@ -37,19 +37,23 @@ async function getSettingsFromJson(filePath) {
 
 async function getProfiles(settings) {
 
+
     console.log("Getting profiles");
     
     try {
         var token = settings.api_key;
-        const config = {
+        var config = {
             method: 'get',
-            maxBodyLength: Infinity,
-            url: 'https://dolphin-anty-api.com/browser_profiles?limit',
-            headers: { 'Authorization': 'Bearer ' + token }
-        };
-        const response = await axios.request(config);
+            url: 'http://localhost:8848/api/agent/profile/list?page=&pageSize=&s=&tags&groupId=',
+            headers: { 
+                'x-api-key': token,
+            }
+         };
+         
+         axios(config)
         console.log("got profiles");
-        return response.data;
+        return JSON.stringify(response.data)
+     
     } catch (err) {
         console.error("Error getting profiles: ", err.message);
         return null;
@@ -60,14 +64,13 @@ async function open_profile(profile_id, settings) {
 
     try {
         var token = settings.api_key;
-        const get_url = `http://localhost:3001/v1.0/browser_profiles/${profile_id}/start?automation=1Так`;
-        const response = await axios.get(get_url, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
-        });
-        return response.data.automation;
+        var config = {
+            method: 'get',
+            url: `http://localhost:8848/api/agent/${profile_id}/start/`,
+            headers: { }
+         };
+         
+         return await axios(config)
     } catch (err) {
         console.error("Error opening profile: ", err.message);
         return null;
