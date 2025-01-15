@@ -1,127 +1,113 @@
 
-const axios = require("axios");
-const { profile } = require("console");
+import axios from "axios";
+// import { profile } from "console";
 
-const puppeteer = require('puppeteer-core');
+import puppeteer from 'puppeteer-core';
+import { Settings } from "./models/settings.ts";
 const fs = require('fs').promises;
 
-const api_url = "http://localhost:3001/v1.0/auth/login-with-token";
-// const token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiN2ZhYTgzYjE5ZTU5NjEzNDIzYTdhNDEwNDBlMzg2YjliZjY5ZDNiMjFkOWI4ZDk3ODFiZTJkMzZkMmY0MmE1Yzg5OGM3NTUxM2U3NWFhOGQiLCJpYXQiOjE3MjQzNDExMDUuMTQ4NTY3LCJuYmYiOjE3MjQzNDExMDUuMTQ4NTcsImV4cCI6MTc1NTg3NzEwNS4xMzkwNjQsInN1YiI6IjM2NzU1NjAiLCJzY29wZXMiOltdfQ.YqT6Fnk2MKHzdba3w_6lTsR93pyyl6VBOA_6wYIg8lWFsMt_iRUdkjaUAQ1ooYNkVvNu9CJX4j_bjUgO_FF8tL4vghpsiEvwC6vQYkvIktaZDj6Djt9bnFomaEBwqIJlWXlV7PsEa783T1FvY4vlQkBA0psFzwNYrTcalGpWPpNf1oaTa1fZuFQ1QlK3cWAhNgC-cVX9eXKACQKLiQjEJP7DXx-6JcuoJz2tWvUUJt0GUcHp3mtpIlA4aGYZynSMyOJk4qCLSyBxNaCw3ul2hKPbTYlnr_u7yiGm1Vh6bZhXME665P_RnrkXuWklp1VuSSbxVlvX5qaXInSOx7Rb_smdcOBtXEIdbRv9EXeROh2qP3vT2b2VCFzFS2zLTwyuNklSlDD3_bV2eX3TgPEpkvp0pYH-ADnbnb4Et15IgL9-xsBnHNfeFuqPKQJQQf_bJ90lB0jp9DMXwjAJZ7tZ-vlZSKwsDSp0UySPtVfYGFD3qbc9VnGOzi5owvOpCcJvrKRh7zybBbJYz-krXibj0QCo7dGdR_eo7eWJDEMjyQQ6gS28Z-SDUGjvRV21kqALVXfnXXShFZU3Oqfg7npDOimq0U0DucB-D6syyKpq6HtZgIs_W8d8pO-RMY2rHt9kZGJnaTgEW6Z883rqP6ogLyN5lbMpNvCBVELtB58ZLks"
-
-// const request_data = { token: token };
-
-// async function login() {
-//     try {
-//         const response = await axios.post(api_url, request_data, {
-//             headers: { 'Content-Type': 'application/json' }
-//         });
-//         console.log("hello: ", response.data);
-//     } catch (err) {
-//         console.error("Login error: ", err.message);
-//     }
-// }
+// const api_url = "http://localhost:3001/v1.0/auth/login-with-token";
+const baseUrl = "http://localhost:8848";
 
 
-async function getSettingsFromJson(filePath) {
+
+
+async function getSettingsFromJson(filePath: string) {
     try {
         const data = await fs.readFile(filePath, 'utf-8');
         // console.log(data);
         return JSON.parse(data);
     } catch (err) {
-        console.error("Error reading setting.JSON file: ", err.message);
+        console.error("Error reading setting.JSON file: ", err);
         return [];
     }
 }
 
 
 
-async function getProfiles(settings) {
+async function getProfiles(settings: Settings) {
 
 
     console.log("Getting profiles");
     
     try {
-        var token = settings.api_key;
-        var config = {
+        
+        const config = {
             method: 'get',
-            url: 'http://localhost:8848/api/agent/profile/list?page=&pageSize=&s=&tags&groupId=',
+            url: '${baseUrl}/api/agent/profile/list?page=&pageSize=&s=&tags&groupId=',
             headers: { 
-                'x-api-key': token,
+                'x-api-key': settings.api_key,
             }
          };
          
-         var response = await axios(config)
+         const response = await axios(config)
         console.log("got profiles");
         console.log(response.data.data.docs);
         return response.data.data.docs;
      
     } catch (err) {
-        console.error("Error getting profiles: ", err.message);
+        console.error("Error getting profiles: ", err);
         return null;
     }
 }
 
-async function open_profile(profile_id, settings) {
+async function open_profile(profile_id: Settings, settings: Settings) {
 
     try {
-        var token = settings.api_key;
-        var config = {
+        
+        const config = {
             method: 'get',
-            url: `http://localhost:8848/api/agent/browser/start/${profile_id}`,
+            url: `${baseUrl}/api/agent/browser/start/${profile_id}`,
             headers: { 
-                'x-api-key': token,
+                'x-api-key': settings.api_key,
             }
          };
          
-         var response = await axios(config)
+         const response = await axios(config)
          console.log(response.data.data)
          return  response.data.data
     } catch (err) {
-        console.error("Error opening profile: ", err.message);
+        console.error("Error opening profile: ", err);
         return null;
     }
 }
 
-async function close_profile(profile_id,settings) {
+async function close_profile(profile_id: string,settings: Settings) {
     try {
-        var token = settings.api_key;
-        const get_url = `http://localhost:8848/api/agent/browser/stop/${profile_id}`;
+        
+        const get_url = `${baseUrl}/api/agent/browser/stop/${profile_id}`;
         const response = await axios.get(get_url, {
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
+            headers: { 
+                'x-api-key': settings.api_key,
             }
         });
         return response;
     } catch (err) {
-        console.error("Error closing profile: ", err.message);
+        console.error("Error closing profile: ", err);
     }
 }
 
-async function delete_profile(profile_id, settings) {
-    let data = "";
-    var token = settings.api_key;
+async function delete_profile(profile_id: string,settings: Settings) {
+    
 
-    let config = {
+    const config = {
         method: 'delete',
-        maxBodyLength: Infinity,
-        url: `https://dolphin-anty-api.com/browser_profiles/${profile_id}?forceDelete=1`,
-        headers: {
-            'Authorization': `Bearer ${token}`,
-         },
-        data : data
-      };
+        url: `${baseUrl}/api/agent/profile/${profile_id}`,
+        headers: { 
+            'x-api-key': settings.api_key,
+        }
+     };
       
-      axios.request(config)
-      .then((response) => {
-        console.log(JSON.stringify(response.data));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    try{
+        const response =  await axios.request(config)
+        return response;
+    }catch(e){
+        console.error("Error deleting profile: ", e.message);
+    }
+      
 }
 
-async function autoScrollDown(page, distance, interval) {
+async function autoScrollDown(page, distance: number, interval: number) {
     try {
         const totalHeight = await page.evaluate(() => document.body.scrollHeight);
         let scrolledHeight = 0;
@@ -132,11 +118,11 @@ async function autoScrollDown(page, distance, interval) {
             scrolledHeight += distance;
         }
     } catch (err) {
-        console.error("Error in autoScrollDown: ", err.message);
+        console.error("Error in autoScrollDown: ", err);
     }
 }
 
-async function autoScrollUp(page, distance, interval) {
+async function autoScrollUp(page, distance: number, interval: number) {
     try {
         let scrolledHeight = await page.evaluate(() => document.documentElement.scrollTop);
 
@@ -150,7 +136,7 @@ async function autoScrollUp(page, distance, interval) {
     }
 }
 
-async function scrollToMiddle(page, distance, interval) {
+async function scrollToMiddle(page, distance: number, interval: number) {
     try {
         const totalHeight = await page.evaluate(() => document.body.scrollHeight);
         const middleHeight = totalHeight / 2;
@@ -162,7 +148,7 @@ async function scrollToMiddle(page, distance, interval) {
             scrolledHeight += distance;
         }
     } catch (err) {
-        console.error("Error in scrollToMiddle: ", err.message);
+        console.error("Error in scrollToMiddle: ", err);
     }
 }
 
@@ -179,11 +165,11 @@ async function slowScrollDownAndUp(page, scrollStep = 100, interval = 100) {
 
 
     } catch (err) {
-        console.error("Error in slowScrollDownAndUp: ", err.message);
+        console.error("Error in slowScrollDownAndUp: ", err);
     }
 }
 
-async function openNewTab(browser, url,settings) {
+async function openNewTab(browser, url: string,settings: Settings) {
     try {
         const page = await browser.newPage();
         page.setDefaultNavigationTimeout(0);
@@ -211,7 +197,7 @@ async function openNewTab(browser, url,settings) {
         await slowScrollDownAndUp(page, randomScrollStep, randomScrollTimeInterval);
         return page;
     } catch (err) {
-        console.error("Error in openNewTab: ", err.message);
+        console.error("Error in openNewTab: ", err);
         return null;
     }
 }
@@ -223,7 +209,7 @@ async function closeAllTabs(browser) {
             await page.close();
         }
     } catch (err) {
-        console.error("Error in closeAllTabs: ", err.message);
+        console.error("Error in closeAllTabs: ", err);
     }
 }
 
@@ -235,15 +221,15 @@ async function closeAllTabsButOne(browser) {
             await page.close();
         }
     } catch (err) {
-        console.error("Error in closeAllTabs: ", err.message);
+        console.error("Error in closeAllTabs: ", err);
     }
 }
 
-function sleep(ms) {
+function sleep(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-async function openBrowser(id, links,settings) {
+async function openBrowser(id: string, links: string[],settings: Settings) {
     console.log(`Opening browser profile ID: ${id}`);
 
     var randomWaitingTimeToStartBrowsing = Math.floor(Math.random() * settings.randomTimeToStartBrowsing*60000)
@@ -353,12 +339,12 @@ async function openBrowser(id, links,settings) {
         await browser.close();
 
     } catch (err) {
-        console.error("Error in openBrowser: ", err.message);
+        console.error("Error in openBrowser: ", err);
     }
 }
 
 
-function shuffleList(array) {
+function shuffleList(array: string[]) {
     for (let i = array.length - 1; i > 0; i--) {
         // Generate a random index between 0 and i
         const j = Math.floor(Math.random() * (i + 1));
@@ -381,12 +367,12 @@ async function fetchData() {
       console.log("Data fetched successfully:", response.data);
       return response.data;
   } catch (error) {
-      console.error("Error fetching data:", error.message);
+      console.error("Error fetching data:", error);
       return 0;
   }
 }
 
-function divideWorkIntoTwo(profile_ids){
+function divideWorkIntoTwo(profile_ids: string[]){
     console.log("divideWorkIntoTwo");
     var halfwayLength = Math.floor(profile_ids.length/2)
 
@@ -396,7 +382,7 @@ function divideWorkIntoTwo(profile_ids){
 }
 
 
-async function openAllProfilesInParallel(profile_ids, links,settings) {
+async function openAllProfilesInParallel(profile_ids: string[], links: string[],settings: Settings) {
     // Shuffle the array of links once before passing it to each profile
     const shuffledLinks = shuffleList([...links]);
     console.log("in openAllProfilesInParallel function")
@@ -451,7 +437,7 @@ async function main() {
             const profiles = profiles_response;
             const profile_ids = profiles.map(profile => profile.profileId);
 
-            const probabilityToRunInParallelOrSeries = Math.floor(Math.random() * 100);
+            // const probabilityToRunInParallelOrSeries = Math.floor(Math.random() * 100);
 
             
                 console.log("Running all profiles in parallel");
@@ -473,7 +459,7 @@ async function main() {
         }
     
     } catch (err) {
-        console.error("Error in main function: ", err.message);
+        console.error("Error in main function: ", err);
     }
 }
 
