@@ -1,12 +1,14 @@
 
 
 
+
 import puppeteer from 'puppeteer-core';
 import { Settings } from "./models/settings.ts";
-import { divideWorkIntoTwo, fetchData, getSettingsFromJson, shuffleList, sleep } from "./helper_functions/random_helper_functions.ts";
-import { close_profile, delete_profile, getProfiles, open_profile } from "./helper_functions/profile_helper_functions.ts";
-import { closeAllTabs, closeAllTabsButOne, openNewTab } from "./helper_functions/browser_helper_functions.ts";
-import { slowScrollDownAndUp } from "./helper_functions/page_helper_functions.ts";
+import { divideWorkIntoTwo, fetchData, getSettingsFromJson, shuffleList, sleep } from "./bitb_helper_functions/random_helper_functions.ts";
+import { close_profile, delete_profile, getProfiles, open_profile } from "./bitb_helper_functions/profile_helper_functions.ts";
+import { closeAllTabs, closeAllTabsButOne, openNewTab } from "./bitb_helper_functions/browser_helper_functions.ts";
+import { slowScrollDownAndUp } from "./bitb_helper_functions/page_helper_functions.ts";
+import { blockRequest } from './nst_helper_functions/page_helper_functions.ts';
 
 
 
@@ -23,7 +25,7 @@ async function openBrowser(id: string, links: string[],settings: Settings) {
         if (!response) return;
 
         // const port = response.port;
-        const browserWSEndpoint = response.webSocketDebuggerUrl;
+        const browserWSEndpoint = response.ws;
         console.log(browserWSEndpoint)
 
         
@@ -43,7 +45,10 @@ async function openBrowser(id: string, links: string[],settings: Settings) {
 
         const page = await browser.newPage();
         page.setDefaultNavigationTimeout(0);
-        await page.setViewport({ width: 1200, height: 768 });
+        // await page.setViewport({ width: 1200, height: 768 });
+        if(settings.block_black_list){
+            blockRequest(page, settings.black_list)
+        }
 
 
 
@@ -186,7 +191,7 @@ async function main() {
             if (!profiles_response) return;
 
             const profiles = profiles_response;
-            const profile_ids = profiles.map(profile => profile.profileId);
+            const profile_ids = profiles.map(profile => profile.id);
 
             // const probabilityToRunInParallelOrSeries = Math.floor(Math.random() * 100);
 
