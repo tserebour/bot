@@ -1,4 +1,4 @@
 @echo off
 cd /d "%~dp0"
-node .\nst.js
+deno run -A .\bitb.js
 pause
