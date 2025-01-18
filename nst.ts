@@ -184,7 +184,7 @@ async function main() {
 
         if(await fetchData() == 1){
 
-            const settings = await getSettingsFromJson("./setting.json");
+            const settings: Settings = await getSettingsFromJson("./setting.json");
             const shuffleAr = shuffleList(settings.links);
             const profiles_response = await getProfiles(settings);
             if (!profiles_response) return;
