@@ -4,11 +4,11 @@
 
 import puppeteer from 'puppeteer-core';
 import { Settings } from "./models/settings.ts";
-import { divideWorkIntoTwo, fetchData, getSettingsFromJson, shuffleList, sleep } from "./bitb_helper_functions/random_helper_functions.ts";
+import { divideWorkIntoTwo, fetchData, getSettingsFromJson, shuffleList, sleep } from "./helper_functions/random_helper_functions.ts";
 import { close_profile, delete_profile, getProfiles, open_profile } from "./bitb_helper_functions/profile_helper_functions.ts";
-import { closeAllTabs, closeAllTabsButOne, openNewTab } from "./bitb_helper_functions/browser_helper_functions.ts";
-import { slowScrollDownAndUp } from "./bitb_helper_functions/page_helper_functions.ts";
-import { blockRequest } from './nst_helper_functions/page_helper_functions.ts';
+import { closeAllTabs, closeAllTabsButOne, openNewTab } from "./helper_functions/browser_helper_functions.ts";
+import { slowScrollDownAndUp } from "./helper_functions/page_helper_functions.ts";
+import { blockRequest } from './helper_functions/page_helper_functions.ts';
 
 
 

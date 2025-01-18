@@ -1,5 +1,7 @@
 import { Settings } from "../models/settings.ts";
+import { blockRequest } from "../helper_functions/page_helper_functions.ts";
 import { slowScrollDownAndUp } from "./page_helper_functions.ts";
+import { sleep } from "./random_helper_functions.ts";
 
 export async function openNewTab(browser, url: string,settings: Settings) {
     try {
@@ -7,10 +9,10 @@ export async function openNewTab(browser, url: string,settings: Settings) {
         page.setDefaultNavigationTimeout(0);
 
 
-        await page.setViewport({
-            width: 1200,
-            height: 768
-        });
+        // await page.setViewport({
+            // width: 1200,
+            // height: 768
+        // });
 
         const { width, height } = await page.evaluate(() => ({
             width: window.innerWidth,
@@ -18,6 +20,12 @@ export async function openNewTab(browser, url: string,settings: Settings) {
         }));
 
         await page.setViewport({ width, height });
+
+        if(settings.block_black_list){
+            blockRequest(page, settings.black_list)
+        }
+
+
         await page.goto(url, { waitUntil: 'networkidle2' });
 
         await sleep(Math.floor(Math.random() * 2000));

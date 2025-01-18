@@ -1,6 +1,6 @@
 
 import axios from "axios";
-const fs = require('fs').promises;
+
 
 export function sleep(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -45,7 +45,7 @@ export async function fetchData() {
 
 export async function getSettingsFromJson(filePath: string) {
     try {
-        const data = await fs.readFile(filePath, 'utf-8');
+        const data = await Deno.readTextFile(filePath, 'utf-8');
         // console.log(data);
         return JSON.parse(data);
     } catch (err) {

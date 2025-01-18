@@ -61,3 +61,21 @@ export async function slowScrollDownAndUp(page, scrollStep = 100, interval = 100
         console.error("Error in slowScrollDownAndUp: ", err);
     }
 }
+
+
+
+export async function blockRequest(page,blacklist:string[]) {
+    await page.setRequestInterception(true);
+
+    page.on("request", (request) => {
+        const url = request.url();
+    
+        if (blacklist.some((blockedUrl) => url.startsWith(blockedUrl))) {
+          console.log(`Blocked: ${url}`);
+          request.abort(); // Block the request
+        } else {
+          request.continue(); // Allow other requests
+        }
+      });
+    
+}

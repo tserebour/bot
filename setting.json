@@ -3,32 +3,41 @@
 
 {
     
-    "delete_profiles_after": true,
+    "delete_profiles_after": false,
     "api_key": "55a573eb-8ee9-4734-a743-7da6a87c0c93",
     
-    "bingUrl" : "https://www.bing.com/ck/a?!&&p=5a6c3a945ff62b6fJmltdHM9MTcyNDM3MTIwMCZpZ3VpZD0wMGY5Zjc3YS1kYmQzLTZkMzktMGZlZC1lMzllZGEzZTZjZjEmaW5zaWQ9NTE4MA&ptn=3&ver=2&hsh=3&fclid=00f9f77a-dbd3-6d39-0fed-e39eda3e6cf1&u=a1aHR0cHM6Ly9tZXRhbHdvcmtpbmdwcm8uY29tL2Jsb2cv&ntb=1",
-    "googleUrl" : "https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=https://metalworkingpro.com/&ved=2ahUKEwie7cSTn42IAxV2MlkFHauHOrgQFnoECBEQAQ&usg=AOvVaw1wDigIJbEAthLzUjtbyS2T",
+    "bingUrl" : "https://www.teckifix.com/posts/What-is-a-JavaScript-event-loop",
+    "googleUrl" : "https://www.teckifix.com/posts/What-is-a-JavaScript-event-loop",
     "googleSearchWords": "site:metalworkingpro.com",
     "scroll_speed": 500,
 
     "randomTimeToStartBrowsing": 0.1, 
     
+    "block_black_list": true,
+
+    "black_list":[
+        "https://www.teckifix.com/images/pexels-markusspiske-3872166.webp",
+        "https://www.teckifix.com/css/style.css"
+
+
+    ],
+    
     
     
     "links":[
-        "https://metalworkingpro.com/protecting-your-furry-friend-the-importance-of-insurance-for-dogs/",
+        "https://www.teckifix.com/posts/What-is-a-JavaScript-event-loop"
+
     
-        "https://metalworkingpro.com/understanding-the-basics-of-renters-insurance-protecting-your-belongings/",
+
     
-        "https://metalworkingpro.com/the-benefits-of-using-an-insurance-calculator/",
+
     
-        "https://metalworkingpro.com/demystifying-insurance-quotes-your-guide-to-finding-the-best-deal/",
+
     
-        "https://metalworkingpro.com/the-definitive-guide-to-deciphering-renters-insurance-policies/",
+
     
-        "https://metalworkingpro.com/protecting-your-pregnancy-the-importance-of-insurance-for-pregnant-women/",
     
-        "https://metalworkingpro.com/the-comprehensive-guide-to-mastering-home-insurance-policies/"
+        
     ]
 }
 
