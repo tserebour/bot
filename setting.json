@@ -2,8 +2,16 @@
 
 
 {
+
+    "host": "gw.dataimpulse.com",
+    "port": 823,
+    "proxyUserName": "a70ef09b110946ca7233__cr.",
+    "proxyPassword": "9cc4d201254273a7",
+
+    "number_of_profiles_to_be_created": 3,
+    "create_profiles": true,
     "number_of_links": 5,
-    "delete_profiles_after": false,
+    "delete_profiles_after": true,
     "api_key": "55a573eb-8ee9-4734-a743-7da6a87c0c93",
     
     "bingUrl" : "https://www.teckifix.com/posts/What-is-a-JavaScript-event-loop",
@@ -18,34 +26,28 @@
     "black_list":[
         "https://www.teckifix.com/images/pexels-markusspiske-3872166.webp",
         "https://www.teckifix.com/css/style.css"
-
-
     ],
     
     
     
     "links":[
-        "https://www.teckifix.com/posts/What-is-a-JavaScript-event-loop?1",
-        "https://www.teckifix.com/posts/What-is-a-JavaScript-event-loop?2",
-        "https://www.teckifix.com/posts/What-is-a-JavaScript-event-loop?3",
-        "https://www.teckifix.com/posts/What-is-a-JavaScript-event-loop?4",
-        "https://www.teckifix.com/posts/What-is-a-JavaScript-event-loop?10",
-        "https://www.teckifix.com/posts/What-is-a-JavaScript-event-loop?8",
-        "https://www.teckifix.com/posts/What-is-a-JavaScript-event-loop?9",
-        "https://www.teckifix.com/posts/What-is-a-JavaScript-event-loop?5"
-
-    
-
-    
-
-    
-
-    
-
-    
-    
+       
+       
+       
+       
+       
+       
+       
+       
         
     ]
+
+
+
+
+
+
+
 }
 
   

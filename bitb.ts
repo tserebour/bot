@@ -5,7 +5,7 @@
 import puppeteer from 'puppeteer-core';
 import { Settings } from "./models/settings.ts";
 import { divideWorkIntoTwo, fetchData, getSettingsFromJson, randomlySelectLinks, shuffleList, sleep } from "./helper_functions/random_helper_functions.ts";
-import { close_profile, delete_profile, getProfiles, open_profile } from "./bitb_helper_functions/profile_helper_functions.ts";
+import { close_profile, createBrowser, delete_profile, getProfiles, open_profile } from "./bitb_helper_functions/profile_helper_functions.ts";
 import { closeAllTabs, closeAllTabsButOne, openNewTab } from "./helper_functions/browser_helper_functions.ts";
 import { slowScrollDownAndUp } from "./helper_functions/page_helper_functions.ts";
 import { blockRequest } from './helper_functions/page_helper_functions.ts';
@@ -103,7 +103,7 @@ async function openBrowser(id: string, links: string[],settings: Settings) {
         }
 
         
-            await sleep(Math.floor(Math.random() * 2000));
+        await sleep(Math.floor(Math.random() * 2000));
         
 
         const scrollStep = 100;
@@ -181,6 +181,93 @@ async function openAllProfilesInParallel(profile_ids: string[], links: string[],
 
 
 
+async function createNumberOfProfiles(n: number, settings: Settings){
+    let countries = [
+        "us","ca","au","gb","nz",
+        "us","ca","au","fr",
+        "us","ca","au"
+    ]
+    for (let i = 1; i<=n; i++){
+        let country = countries[Math.floor(Math.random()*countries.length)]
+
+        console.log(`creating profile_${i} with a ${country} proxy` )
+        // gw.dataimpulse.com:823:a70ef09b110946ca7233_cr.us:9cc4d201254273a7
+
+        const browserProfile: BrowserProfile = {
+            platform: "",
+            platformIcon: "",
+            url: "",
+            name: `My Browser_${i}`,
+            remark: "",
+            userName: "",
+            password: "",
+            proxyMethod: 2,
+            proxyType: "https",
+            host: settings.host,
+            port: settings.port,
+            proxyUserName: `${settings.proxyUserName}${country}`,
+            proxyPassword: settings.proxyPassword,
+            browserFingerPrint: {
+              id: "",
+              
+              browserId: "",
+              ostype: "",
+              os: "",
+              coreVersion: "130",
+              version: "",
+              userAgent: "",
+              isIpCreateTimeZone: true,
+              timeZone: "",
+              webRTC: "0",
+              position: "1",
+              isIpCreatePosition: true,
+              isIpCreateLanguage: true,
+              resolutionType: "0",
+              resolution: "",
+              fontType: "0",
+              canvas: "0",
+              webGL: "0",
+              webGLMeta: "0",
+              webGLManufacturer: "",
+              webGLRender: "",
+              audioContext: "0",
+              mediaDevice: "0",
+              clientRects: "0",
+              hardwareConcurrency: "",
+              deviceMemory: "",
+              deviceNameType: "",
+              deviceName: "",
+              doNotTrack: "",
+              flash: "",
+              portScanProtect: "",
+              portWhiteList: "",
+              isDelete: 0,
+              colorDepth: 32,
+              devicePixelRatio: 1.2,
+              createdBy: "",
+              createdTime: "",
+              updateBy: "",
+              updateTime: "",
+            },
+            abortImage: false,
+            stopWhileNetError: true,
+          };
+        
+          try {
+            const response = await createBrowser(browserProfile);
+            // console.log("API Response:", response);
+          } catch (error) {
+            console.error("Error:", error);
+          }
+
+    }
+    
+}
+
+
+
+
+
 
 async function main() {
     try {
@@ -189,7 +276,13 @@ async function main() {
 
             const settings = await getSettingsFromJson("./setting.json");
             const shuffleAr = shuffleList(settings.links);
+            if(settings.create_profiles){
+                await createNumberOfProfiles(settings.number_of_profiles_to_be_created)
+            }
             const profiles_response = await getProfiles(settings);
+
+
+            
             if (!profiles_response) return;
 
             const profiles = profiles_response;
@@ -217,6 +310,9 @@ async function main() {
 
 
 main();
+
+
+
 
 
 

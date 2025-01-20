@@ -101,3 +101,16 @@ export async function delete_profile(profile_id: string,settings: Settings) {
     }
       
 }
+
+
+
+
+// / Define the updateBrowser function
+export async function createBrowser (data: BrowserProfile): Promise<any> {
+  try {
+    const response = await axios.post(`${baseUrl}/browser/update`, data);
+    return response.data;
+  } catch (error) {
+    throw new Error(`Failed to create browser: ${error.message}`);
+  }
+};
