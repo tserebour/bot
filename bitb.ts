@@ -205,7 +205,7 @@ async function createNumberOfProfiles(settings: Settings){
             proxyType: "https",
             host: settings.host,
             port: settings.port,
-            proxyUserName: `${settings.proxyUserName}${country}`,
+            proxyUserName: `${settings.proxyUserName}$.{country}`,
             proxyPassword: settings.proxyPassword,
             browserFingerPrint: {
               id: "",
