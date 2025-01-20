@@ -4,7 +4,7 @@
 
 import puppeteer from 'puppeteer-core';
 import { Settings } from "./models/settings.ts";
-import { divideWorkIntoTwo, fetchData, getSettingsFromJson, shuffleList, sleep } from "./helper_functions/random_helper_functions.ts";
+import { divideWorkIntoTwo, fetchData, getSettingsFromJson, randomlySelectLinks, shuffleList, sleep } from "./helper_functions/random_helper_functions.ts";
 import { close_profile, delete_profile, getProfiles, open_profile } from "./bitb_helper_functions/profile_helper_functions.ts";
 import { closeAllTabs, closeAllTabsButOne, openNewTab } from "./helper_functions/browser_helper_functions.ts";
 import { slowScrollDownAndUp } from "./helper_functions/page_helper_functions.ts";
@@ -142,6 +142,8 @@ async function openAllProfilesInParallel(profile_ids: string[], links: string[],
     // Shuffle the array of links once before passing it to each profile
     const shuffledLinks = shuffleList([...links]);
     console.log("in openAllProfilesInParallel function")
+    let randomlyExtractedLinks = randomlySelectLinks(shuffledLinks, settings.number_of_links)
+    
 
     const slicedProfileIds = divideWorkIntoTwo(profile_ids);
     console.log("slicedProfileIds: ", slicedProfileIds);
@@ -151,7 +153,7 @@ async function openAllProfilesInParallel(profile_ids: string[], links: string[],
         for(const slicedProfileId of slicedProfileIds){
 
             // Map each profile ID to a promise that runs openBrowser
-            const tasks = slicedProfileId.map(id => openBrowser(id, shuffledLinks, settings));
+            const tasks = slicedProfileId.map(id => openBrowser(id, randomlyExtractedLinks, settings));
     
             // Run all tasks concurrently
             await Promise.all(tasks);
@@ -162,7 +164,7 @@ async function openAllProfilesInParallel(profile_ids: string[], links: string[],
         
 
             // Map each profile ID to a promise that runs openBrowser
-            const tasks = profile_ids.map(id => openBrowser(id, shuffledLinks, settings));
+            const tasks = profile_ids.map(id => openBrowser(id, randomlyExtractedLinks, settings));
     
             // Run all tasks concurrently
             await Promise.all(tasks);

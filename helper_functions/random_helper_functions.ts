@@ -53,3 +53,40 @@ export async function getSettingsFromJson(filePath: string) {
         return [];
     }
 }
+
+
+export function randomlySelectLinks(links:string[], n: number){
+    let extractedLinks: string[] = [];
+
+    if(n >= links.length){
+        extractedLinks = links
+    }else{
+        while (extractedLinks.length < n) {
+            let randomSelectedIndex = Math.floor    (Math.random() * links.length+1);
+            
+            if(randomSelectedIndex < links.length){
+                extractedLinks.push(
+                    links[randomSelectedIndex]
+                )
+    
+                
+               links =  links.filter(function(item){
+                    return item !== links[randomSelectedIndex]
+                })
+                  
+    
+    
+            }
+    
+        }
+    }
+    
+      
+    console.log("Random links =")
+    console.log(extractedLinks) 
+
+    return extractedLinks;
+
+
+}
+        // they won't all run at same time and at least separately

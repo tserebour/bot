@@ -1,4 +1,5 @@
 export interface Settings {
+    number_of_links: number;
     delete_profiles_after: boolean;
     block_black_list: boolean;
     black_list: string[];
