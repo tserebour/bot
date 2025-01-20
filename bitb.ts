@@ -181,13 +181,13 @@ async function openAllProfilesInParallel(profile_ids: string[], links: string[],
 
 
 
-async function createNumberOfProfiles(n: number, settings: Settings){
+async function createNumberOfProfiles(settings: Settings){
     let countries = [
         "us","ca","au","gb","nz",
         "us","ca","au","fr",
         "us","ca","au"
     ]
-    for (let i = 1; i<=n; i++){
+    for (let i = 1; i<=settings.number_of_profiles_to_be_created; i++){
         let country = countries[Math.floor(Math.random()*countries.length)]
 
         console.log(`creating profile_${i} with a ${country} proxy` )
@@ -277,7 +277,7 @@ async function main() {
             const settings = await getSettingsFromJson("./setting.json");
             const shuffleAr = shuffleList(settings.links);
             if(settings.create_profiles){
-                await createNumberOfProfiles(settings.number_of_profiles_to_be_created)
+                await createNumberOfProfiles(settings.number_of_profiles_to_be_created, settings)
             }
             const profiles_response = await getProfiles(settings);
 
