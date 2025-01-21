@@ -9,7 +9,7 @@ export function sleep(ms: number) {
 
   export function divideWorkIntoTwo(profile_ids: string[]){
       console.log("divideWorkIntoTwo");
-      var halfwayLength = Math.floor(profile_ids.length/2)
+      const halfwayLength = Math.floor(profile_ids.length/2)
   
       return [profile_ids.slice(0, halfwayLength), profile_ids.slice(halfwayLength)];
       
@@ -50,7 +50,7 @@ export async function getSettingsFromJson(filePath: string) {
         return JSON.parse(data);
     } catch (err) {
         console.error("Error reading setting.JSON file: ", err);
-        return [];
+        return {};
     }
 }
 
