@@ -1,5 +1,5 @@
 // Define the BrowserFingerPrint interface
-interface BrowserFingerPrint {
+export interface BrowserFingerPrint {
     id: string;
     seq?: number;
     browserId: string;
@@ -43,7 +43,7 @@ interface BrowserFingerPrint {
   }
   
   // Extend the BrowserUpdateRequest interface to include BrowserFingerPrint
-  interface BrowserProfile {
+  export interface BrowserProfile {
     platform: string;
     platformIcon: string;
     url: string;

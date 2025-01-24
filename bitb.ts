@@ -9,6 +9,7 @@ import { close_profile, createBrowser, delete_profile, getProfiles, open_profile
 import { closeAllTabs, closeAllTabsButOne, openNewTab } from "./helper_functions/browser_helper_functions.ts";
 import { slowScrollDownAndUp } from "./helper_functions/page_helper_functions.ts";
 import { blockRequest } from './helper_functions/page_helper_functions.ts';
+import { BrowserProfile } from "./models/bitb_models/profile.ts";
 
 
 
@@ -142,7 +143,7 @@ async function openAllProfilesInParallel(profile_ids: string[], links: string[],
     // Shuffle the array of links once before passing it to each profile
     const shuffledLinks = shuffleList([...links]);
     console.log("in openAllProfilesInParallel function")
-    let randomlyExtractedLinks = randomlySelectLinks(shuffledLinks, settings.number_of_links)
+    const randomlyExtractedLinks = randomlySelectLinks(shuffledLinks, settings.number_of_links)
     
 
     const slicedProfileIds = divideWorkIntoTwo(profile_ids);
