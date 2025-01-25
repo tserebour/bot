@@ -206,11 +206,10 @@ async function createNumberOfProfiles(settings: Settings){
             proxyType: "https",
             host: settings.host,
             port: settings.port,
-            proxyUserName: `${settings.proxyUserName}$.{country}`,
+            proxyUserName: `${settings.proxyUserName}__cr.${country}`,
             proxyPassword: settings.proxyPassword,
             browserFingerPrint: {
               id: "",
-              
               browserId: "",
               ostype: "",
               os: "",
@@ -278,7 +277,7 @@ async function main() {
             const settings = await getSettingsFromJson("./setting.json");
             const shuffleAr = shuffleList(settings.links);
             if(settings.create_profiles){
-                await createNumberOfProfiles(settings.number_of_profiles_to_be_created, settings)
+                await createNumberOfProfiles(settings)
             }
             const profiles_response = await getProfiles(settings);
 
