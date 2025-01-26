@@ -252,7 +252,7 @@ async function createNumberOfProfiles(settings: Settings){
 
 
 
-    for (let i = 1; i<=settings.number_of_profiles_to_be_created; i++){
+    for (let i = 1; i <= settings.number_of_profiles_to_be_created; i++){
         const country = myMap.get(countries[Math.floor(Math.random()*countries.length)]);
         const allCookies = await getSettingsFromJson(`cookies/${country?.cookie_filename ?? ""}`);
         const cookie = allCookies[Math.floor(Math.random()*allCookies.length)]
