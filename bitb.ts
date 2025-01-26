@@ -333,7 +333,7 @@ async function createNumberOfProfiles(settings: Settings){
           };
         
           try {
-            const response = await createBrowser(browserProfile);
+            await createBrowser(browserProfile);
             // console.log("API Response:", response);
           } catch (error) {
             console.error("Error:", error);
