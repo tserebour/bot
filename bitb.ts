@@ -16,7 +16,7 @@ import { Country } from "./models/country.ts";
 
 
 
-let myMap = new MyMap<string,Country>();
+const myMap = new MyMap<string,Country>();
 
 myMap.set(
     "fr", 
