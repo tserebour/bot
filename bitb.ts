@@ -59,7 +59,7 @@ myMap.set(
 
 myMap.set(
     "ca", {
-        name: "Canadian French",
+        name: "Canadian",
         language: "fr",
         region: "CA",
         country: "Canada",
