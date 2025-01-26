@@ -255,7 +255,7 @@ async function openAllProfilesInParallel(profile_ids: string[], links: string[],
 
 
 async function createNumberOfProfiles(settings: Settings){
-    let countries = [
+    const countries = [
         "us","ca","au","gb","nz",
         "us","ca","au","fr",
         "us","ca","au"
