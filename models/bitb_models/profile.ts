@@ -49,6 +49,7 @@ export interface BrowserFingerPrint {
     url: string;
     name: string;
     remark: string;
+    cookie: string;
     userName: string;
     password: string;
     proxyMethod: number;

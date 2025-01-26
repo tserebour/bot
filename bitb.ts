@@ -10,6 +10,64 @@ import { closeAllTabs, closeAllTabsButOne, openNewTab } from "./helper_functions
 import { slowScrollDownAndUp } from "./helper_functions/page_helper_functions.ts";
 import { blockRequest } from './helper_functions/page_helper_functions.ts';
 import { BrowserProfile } from "./models/bitb_models/profile.ts";
+import MyMap from "./models/map.ts";
+import { Country } from "./models/country.ts";
+
+
+
+
+let myMap = new MyMap<string,Country>();
+
+myMap.set(
+    "fr", 
+    {
+        name: "Français",
+        language: "fr",
+        region: "FR",
+        country: "France",
+        timezone: "Europe/Paris",
+        locale: "fr_FR",
+        cookie_filename: "fr.json"
+
+    }
+);
+
+myMap.set(
+    "us", {
+        name: "English",
+        language: "en",
+        region: "US",
+        country: "United States",
+        timezone: "America/New_York",
+        locale: "en_US",
+        cookie_filename: "us.json"
+    }
+) 
+
+
+myMap.set(
+    "de", {
+        name: "Deutsch",
+        language: "de",
+        region: "DE",
+        country: "Germany",
+        timezone: "Europe/Berlin",
+        locale: "de_DE",
+        cookie_filename: "de.json"
+    }
+)
+
+myMap.set(
+    "ca", {
+        name: "Canadian French",
+        language: "fr",
+        region: "CA",
+        country: "Canada",
+        timezone: "America/Toronto",
+        locale: "fr_CA",
+        cookie_filename: "ca.json"
+    }
+)
 
 
 
@@ -182,23 +240,31 @@ async function openAllProfilesInParallel(profile_ids: string[], links: string[],
 
 
 
+
+
 async function createNumberOfProfiles(settings: Settings){
     let countries = [
         "us","ca","au","gb","nz",
         "us","ca","au","fr",
         "us","ca","au"
-    ]
-    for (let i = 1; i<=settings.number_of_profiles_to_be_created; i++){
-        let country = countries[Math.floor(Math.random()*countries.length)]
+    ];
 
-        console.log(`creating profile_${i} with a ${country} proxy` )
+
+
+
+    for (let i = 1; i<=settings.number_of_profiles_to_be_created; i++){
+        const country = myMap.get(countries[Math.floor(Math.random()*countries.length)]);
+        const allCookies = await getSettingsFromJson(`cookies/${country?.cookie_filename ?? ""}`);
+        const cookie = allCookies[Math.floor(Math.random()*allCookies.length)]
+
+        console.log(`creating profile_${i} with a ${country?.country} proxy` )
         // gw.dataimpulse.com:823:a70ef09b110946ca7233_cr.us:9cc4d201254273a7
 
         const browserProfile: BrowserProfile = {
             platform: "",
             platformIcon: "",
             url: "",
-            name: `My Browser_${i}`,
+            name: `My ${country?.country} Browser_${i}`,
             remark: "",
             userName: "",
             password: "",
@@ -206,8 +272,9 @@ async function createNumberOfProfiles(settings: Settings){
             proxyType: "https",
             host: settings.host,
             port: settings.port,
-            proxyUserName: `${settings.proxyUserName}__cr.${country}`,
+            proxyUserName: `${settings.proxyUserName}__cr.${country?.region.toLowerCase()}`,
             proxyPassword: settings.proxyPassword,
+            cookie: JSON.stringify(cookie),
             browserFingerPrint: {
               id: "",
               browserId: "",
