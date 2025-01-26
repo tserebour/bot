@@ -69,6 +69,18 @@ myMap.set(
     }
 )
 
+myMap.set(
+    "gb",{
+        name: "English",
+        language: "en",
+        region: "GB",
+        country: "United Kingdom",
+        timezone: "Europe/London",
+        locale: "en_GB",
+        cookie_filename: "gb.json"
+    }
+)
+
 
 
 async function openBrowser(id: string, links: string[],settings: Settings) {
