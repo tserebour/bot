@@ -1,10 +1,11 @@
 
 import { Settings } from "./models/settings.ts";
-import { divideWorkIntoTwo, fetchData, getSettingsFromJson, randomlySelectLinks, shuffleList } from "./helper_functions/random_helper_functions.ts";
+import { divideWorkIntoTwo, fetchData, getSettingsFromJson, listJsonFiles, randomlySelectLinks, shuffleList } from "./helper_functions/random_helper_functions.ts";
 import { createBrowser, getProfiles } from "./bitb_helper_functions/profile_helper_functions.ts";
 import { BrowserProfile } from "./models/bitb_models/profile.ts";
 import MyMap from "./models/map.ts";
 import { Country } from "./models/country.ts";
+import { openBrowser } from "./helper_functions/browser_helper_functions.ts";
 
 
 
@@ -139,13 +140,21 @@ async function createNumberOfProfiles(settings: Settings){
         "us","ca","au"
     ];
 
+    
+
+
+    const jsonFiles: string[] = await listJsonFiles(`${Deno.cwd()}/cookies`);
+
+    console.log("jsonFiles: ", jsonFiles)
+
 
 
 
     for (let i = 1; i <= settings.number_of_profiles_to_be_created; i++){
         const country = myMap.get(countries[Math.floor(Math.random()*countries.length)]);
-        const allCookies = await getSettingsFromJson(`cookies/${country?.cookie_filename ?? ""}`);
-        const cookie = allCookies[Math.floor(Math.random()*allCookies.length)]
+        // const allCookies = await getSettingsFromJson(`cookies/${country?.cookie_filename ?? ""}`);
+        const selectedCookieUrl = jsonFiles[Math.floor(Math.random() * jsonFiles.length+1)]
+        const cookie = await getSettingsFromJson(`cookies/${selectedCookieUrl ?? ""}`)
 
         console.log(`creating profile_${i} with a ${country?.country} proxy` )
         // gw.dataimpulse.com:823:a70ef09b110946ca7233_cr.us:9cc4d201254273a7
@@ -228,6 +237,7 @@ async function createNumberOfProfiles(settings: Settings){
 
 async function main() {
     try {
+        
 
         if(await fetchData() == 1){
 

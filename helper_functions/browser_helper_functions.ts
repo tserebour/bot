@@ -6,7 +6,7 @@ import puppeteer from 'puppeteer-core';
 import { close_profile, delete_profile, open_profile } from "../bitb_helper_functions/profile_helper_functions.ts";
 
 
-async function openBrowser(id: string, links: string[],settings: Settings) {
+export async function openBrowser(id: string, links: string[],settings: Settings) {
     console.log(`Opening browser profile ID: ${id}`);
 
     const randomWaitingTimeToStartBrowsing = Math.floor(Math.random() * settings.randomTimeToStartBrowsing*60000)

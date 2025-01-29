@@ -62,7 +62,7 @@ export function randomlySelectLinks(links:string[], n: number){
         extractedLinks = links
     }else{
         while (extractedLinks.length < n) {
-            let randomSelectedIndex = Math.floor    (Math.random() * links.length+1);
+            let randomSelectedIndex = Math.floor(Math.random() * links.length+1);
             
             if(randomSelectedIndex < links.length){
                 extractedLinks.push(
@@ -90,3 +90,22 @@ export function randomlySelectLinks(links:string[], n: number){
 
 }
         // they won't all run at same time and at least separately
+
+
+export async function listJsonFiles(folderUrl: string): Promise<string[]> {
+    try {
+      const files: string[] = [];
+      for await (const entry of Deno.readDir(folderUrl)) {
+        if (entry.isFile && entry.name.endsWith(".json")) {
+          files.push(entry.name);
+        }
+      }
+      return files;
+    } catch (error) {
+      console.error("Error reading directory:", error);
+      return [];
+    }
+  }
+
+
+  
