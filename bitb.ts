@@ -64,12 +64,12 @@ myMap.set(
 )
 
 myMap.set(
-    "gb",{
+    "au",{
         name: "English",
         language: "en",
         region: "GB",
-        country: "United Kingdom",
-        timezone: "Europe/London",
+        country: "Australia",
+        timezone: "",
         locale: "en_GB",
         cookie_filename: "gb.json"
     }
@@ -135,7 +135,8 @@ async function openAllProfilesInParallel(profile_ids: string[], links: string[],
 
 async function createNumberOfProfiles(settings: Settings){
     const countries = [
-        "us","ca","au","gb","nz",
+        "us","ca","au","gb",
+        "us","de","ca","gb",
         "us","ca","au","fr",
         "us","ca","au"
     ];
@@ -157,6 +158,7 @@ async function createNumberOfProfiles(settings: Settings){
         const cookie = await getSettingsFromJson(`cookies/${selectedCookieUrl ?? ""}`)
 
         console.log(`creating profile_${i} with a ${country?.country} proxy` )
+        console.log(`${selectedCookieUrl} : ${JSON.stringify(cookie)}`);
         // gw.dataimpulse.com:823:a70ef09b110946ca7233_cr.us:9cc4d201254273a7
 
         const browserProfile: BrowserProfile = {
