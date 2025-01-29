@@ -157,8 +157,8 @@ async function createNumberOfProfiles(settings: Settings){
         const selectedCookieUrl = jsonFiles[Math.floor(Math.random() * jsonFiles.length+1)]
         const cookie = await getSettingsFromJson(`cookies/${selectedCookieUrl ?? ""}`)
 
-        console.log(`creating profile_${i} with a ${country?.country} proxy` )
-        console.log(`${selectedCookieUrl} : ${JSON.stringify(cookie)}`);
+        console.log(`creating profile_${i} with a ${country?.country} proxy with ${selectedCookieUrl}` )
+        
         // gw.dataimpulse.com:823:a70ef09b110946ca7233_cr.us:9cc4d201254273a7
 
         const browserProfile: BrowserProfile = {
