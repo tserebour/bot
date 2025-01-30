@@ -6,7 +6,11 @@ export async function autoScrollDown(page, distance: number, interval: number) {
         let scrolledHeight = 0;
 
         while (scrolledHeight < totalHeight) {
-            await page.evaluate(y => window.scrollTo(0, y), scrolledHeight + distance);
+            const scrollDistance = (scrolledHeight + distance)
+                                    + Math.floor(
+                                        Math.random() * Math.random() * (scrolledHeight + distance)
+                                    );
+            await page.evaluate(y => window.scrollTo(0, y), scrollDistance);
             const moreRandomInterval = interval+ Math.floor(Math.random()* (0.5*interval))
             await new Promise(resolve => setTimeout(resolve, moreRandomInterval));
             scrolledHeight += distance;
@@ -21,7 +25,11 @@ export async function autoScrollUp(page, distance: number, interval: number) {
         let scrolledHeight = await page.evaluate(() => document.documentElement.scrollTop);
 
         while (scrolledHeight > 0) {
-            await page.evaluate(y => window.scrollTo(0, y), scrolledHeight - distance);
+            const scrollDistance = (scrolledHeight - distance)
+                                    + Math.floor(
+                                        Math.random() * Math.random() * (scrolledHeight - distance)
+                                    );
+            await page.evaluate(y => window.scrollTo(0, y), scrollDistance);
             const moreRandomInterval = interval+ Math.floor(Math.random()* (0.5*interval))
             await new Promise(resolve => setTimeout(resolve, moreRandomInterval));
             scrolledHeight -= distance;
@@ -38,7 +46,11 @@ export async function scrollToMiddle(page, distance: number, interval: number) {
 
         let scrolledHeight = 0;
         while (scrolledHeight < middleHeight) {
-            await page.evaluate(y => window.scrollTo(0, y), scrolledHeight + distance);
+            const scrollDistance = (scrolledHeight + distance)
+                                    + Math.floor(
+                                        Math.random() * Math.random() * (scrolledHeight + distance)
+                                    );
+            await page.evaluate(y => window.scrollTo(0, y), scrollDistance);
             const moreRandomInterval = interval+ Math.floor(Math.random()* (0.5*interval))
             await new Promise(resolve => setTimeout(resolve, moreRandomInterval));
             scrolledHeight += distance;
@@ -67,7 +79,7 @@ export async function slowScrollDownAndUp(page, scrollStep = 100, interval = 100
 
 
 
-export async function blockRequest(page,blacklist:string[]) {
+export async function blockRequest(page, blacklist: string[]) {
     await page.setRequestInterception(true);
 
     page.on("request", (request) => {
@@ -75,9 +87,9 @@ export async function blockRequest(page,blacklist:string[]) {
     
         if (blacklist.some((blockedUrl) => url.startsWith(blockedUrl))) {
           console.log(`Blocked: ${url}`);
-          request.abort(); // Block the request
+          request.abort(); 
         } else {
-          request.continue(); // Allow other requests
+          request.continue();
         }
       });
     
