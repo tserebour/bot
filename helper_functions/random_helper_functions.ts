@@ -70,7 +70,7 @@ export function randomlySelectLinks(links:string[], n: number){
         extractedLinks = links
     }else{
         while (extractedLinks.length < n) {
-            let randomSelectedIndex = Math.floor(Math.random() * links.length+1);
+            const randomSelectedIndex = Math.floor(Math.random() * links.length);
             
             if(randomSelectedIndex < links.length){
                 extractedLinks.push(
