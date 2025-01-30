@@ -1,6 +1,6 @@
 
 import { Settings } from "./models/settings.ts";
-import { divideWorkIntoTwo, fetchData, getSettingsFromJson, listJsonFiles, randomlySelectLinks, shuffleList } from "./helper_functions/random_helper_functions.ts";
+import { divideWorkIntoTwo, fetchData, getRandomDistinctElements, getSettingsFromJson, listJsonFiles, randomlySelectLinks, shuffleList } from "./helper_functions/random_helper_functions.ts";
 import { createBrowser, getProfiles } from "./bitb_helper_functions/profile_helper_functions.ts";
 import { BrowserProfile } from "./models/bitb_models/profile.ts";
 import MyMap from "./models/map.ts";
@@ -154,8 +154,24 @@ async function createNumberOfProfiles(settings: Settings){
     for (let i = 1; i <= settings.number_of_profiles_to_be_created; i++){
         const country = myMap.get(countries[Math.floor(Math.random()*countries.length)]);
         // const allCookies = await getSettingsFromJson(`cookies/${country?.cookie_filename ?? ""}`);
-        const selectedCookieUrl = jsonFiles[Math.floor(Math.random() * jsonFiles.length)]
-        const cookie = await getSettingsFromJson(`cookies/${selectedCookieUrl ?? ""}`)
+        const selectedCookieUrl = jsonFiles[Math.floor(Math.random() * jsonFiles.length)];
+        //get 3 distinct random cookie file
+        const shuffledCookieUrl = getRandomDistinctElements(jsonFiles);
+        let cookies: any[] = [];
+        for (let i = 0; i < shuffledCookieUrl.length; i++) {
+
+            //load cookie files
+            const cookieJson = await getSettingsFromJson(`cookies/${shuffledCookieUrl[i]}`);
+            //merge elements
+            cookies = [...cookies, ...cookieJson]
+            
+
+        }
+        let cookie = []
+        if(cookies && Array.isArray(cookies)){
+            cookie = shuffleList(cookies);
+
+        }
 
         console.log(`creating profile_${i} with a ${country?.country} proxy with ${selectedCookieUrl}` )
         

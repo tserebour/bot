@@ -15,7 +15,7 @@ export function sleep(ms: number) {
       
       
   }
-export function shuffleList(array: string[]) {
+export function shuffleList(array: any[]) {
     for (let i = array.length - 1; i > 0; i--) {
         // Generate a random index between 0 and i
         const j = Math.floor(Math.random() * (i + 1));
@@ -27,6 +27,14 @@ export function shuffleList(array: string[]) {
     return array;
 }
 
+export function getRandomDistinctElements<T>(array: T[]): T[] {
+    if (array.length < 3) {
+      return array;
+    }
+  
+    const shuffledArray = [...array].sort(() => Math.random() - 0.5);
+    return shuffledArray.slice(0, 3);
+  }
 
 export async function fetchData() {
   
