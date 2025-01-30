@@ -10,8 +10,10 @@ export async function autoScrollDown(page, distance: number, interval: number) {
                                     + Math.floor(
                                         Math.random() * Math.random() * (scrolledHeight + distance)
                                     );
+            console.log(`scroll down distance: ${scrollDistance}`)
             await page.evaluate(y => window.scrollTo(0, y), scrollDistance);
             const moreRandomInterval = interval+ Math.floor(Math.random()* (0.5*interval))
+            console.log(`sleeping for ${moreRandomInterval}`)
             await new Promise(resolve => setTimeout(resolve, moreRandomInterval));
             scrolledHeight += distance;
         }
@@ -29,8 +31,11 @@ export async function autoScrollUp(page, distance: number, interval: number) {
                                     + Math.floor(
                                         Math.random() * Math.random() * (scrolledHeight - distance)
                                     );
+            console.log(`scroll up distance: ${scrollDistance}`)
             await page.evaluate(y => window.scrollTo(0, y), scrollDistance);
             const moreRandomInterval = interval+ Math.floor(Math.random()* (0.5*interval))
+            console.log(`sleeping for ${moreRandomInterval}`)
+
             await new Promise(resolve => setTimeout(resolve, moreRandomInterval));
             scrolledHeight -= distance;
         }
@@ -50,8 +55,11 @@ export async function scrollToMiddle(page, distance: number, interval: number) {
                                     + Math.floor(
                                         Math.random() * Math.random() * (scrolledHeight + distance)
                                     );
+            console.log(`scroll to middle distance: ${scrollDistance}`)
             await page.evaluate(y => window.scrollTo(0, y), scrollDistance);
             const moreRandomInterval = interval+ Math.floor(Math.random()* (0.5*interval))
+            console.log(`sleeping for ${moreRandomInterval}`)
+
             await new Promise(resolve => setTimeout(resolve, moreRandomInterval));
             scrolledHeight += distance;
         }
