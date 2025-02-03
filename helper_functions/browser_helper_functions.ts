@@ -113,10 +113,11 @@ export async function openBrowser(id: string, links: string[],settings: Settings
 
         await closeAllTabs(browser);
         await close_profile(id,settings);
+        await browser.close();
         if(settings.delete_profiles_after){
             await delete_profile(id, settings);
         }
-        await browser.close();
+        
 
     } catch (err) {
         console.error("Error in openBrowser: ", err);
@@ -134,12 +135,12 @@ export async function openNewTab(browser, url: string,settings: Settings) {
             // height: 768
         // });
 
-        const { width, height } = await page.evaluate(() => ({
-            width: window.innerWidth,
-            height: window.innerHeight
-        }));
+        // const { width, height } = await page.evaluate(() => ({
+        //     width: window.innerWidth,
+        //     height: window.innerHeight
+        // }));
 
-        await page.setViewport({ width, height });
+        // await page.setViewport({ width, height });
 
         if(settings.block_black_list){
             blockRequest(page, settings.black_list)
@@ -151,6 +152,7 @@ export async function openNewTab(browser, url: string,settings: Settings) {
         await sleep(Math.floor(Math.random() * 2000));
 
         const scrollStep = 100;
+        
         const randomScrollStep = Math.floor(Math.random() * scrollStep) + 100;
         const randomScrollTimeInterval = Math.floor(Math.random() * 100) + settings.scroll_speed;
 
