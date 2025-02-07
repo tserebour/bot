@@ -107,8 +107,17 @@ export async function openBrowser(id: string, links: string[],settings: Settings
         await slowScrollDownAndUp(page, randomScrollStep, randomScrollTimeInterval);
 
         for (const link of links) {
-            console.log(`Opening link:   ${link} in browser profile ${id}`)
-            await openNewTab(browser, link, settings);
+            const openProbability = Math.floor(Math.random() * 100)
+
+            if(openProbability < 80){
+                console.log(`Opening link:   ${link} in browser profile ${id}`)
+                await openNewTab(browser, link, settings);
+
+            }else{
+                console.log(`Skipping link:   ${link} in browser profile ${id}`)
+
+            }
+            
         }
 
         await closeAllTabs(browser);
