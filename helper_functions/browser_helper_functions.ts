@@ -106,6 +106,10 @@ export async function openBrowser(id: string, links: string[],settings: Settings
 
         await slowScrollDownAndUp(page, randomScrollStep, randomScrollTimeInterval);
 
+
+
+
+        
         for (const link of links) {
             const openProbability = Math.floor(Math.random() * 100)
 
