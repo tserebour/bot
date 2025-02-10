@@ -110,6 +110,10 @@ export async function openBrowser(id: string, links: string[],settings: Settings
 
 
         
+
+
+
+
         for (const link of links) {
             const openProbability = Math.floor(Math.random() * 100)
 
